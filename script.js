@@ -1,19 +1,28 @@
-const biblioteca = [];
+class Biblioteca{
+   constructor(){
+      this.biblioteca = []
+   }
 
-function Libro(libro, autor) {
-   this.libro = libro;
-   this.autor = autor;
-   this.id = crypto.randomUUID();
+   aniadirLibro(libro, autor){
+      const nuevoLibro = new Libro(libro, autor)
+      this.biblioteca.push(nuevoLibro);
+   }
 }
 
-function aniadirLibro(libro, autor) {
-   const nuevoLibro = new Libro(libro, autor)
-   biblioteca.push(nuevoLibro);
+class Libro{
+   constructor(libro, autor){
+      this.libro = libro;
+      this.autor = autor;
+      this.id = crypto.randomUUID();
+   }
+
 }
 
+//Creacion biblioteca
+const biblioteca = new Biblioteca;
 //Insercion de libros
-aniadirLibro("El Hobbit", "Tolkien", 1)
-aniadirLibro("El dragon rojo", "Thomas Harris", 2)
+biblioteca.aniadirLibro("El Hobbit", "Tolkien", 1)
+biblioteca.aniadirLibro("El dragon rojo", "Thomas Harris", 2)
 
 
 //Creacion botones abrir/cerrar
@@ -34,7 +43,7 @@ btnCrear.addEventListener("click", function (event) {
    }else{
       event.preventDefault();
 
-      aniadirLibro(nombre, autor)
+      biblioteca.aniadirLibro(nombre, autor)
       //Antes de cerrar la ventana
       //Se crea otro div cartaLibro
       crearCartaLibro(nombre, autor);
@@ -62,7 +71,6 @@ container.style.gap = "35px";
 const body = document.querySelector("body")
 body.appendChild(container)
 
-
 //Le agregamos unos div dependiendo de los elementos en biblioteca
 function crearCartaLibro(libro, autor){
    const cartaLibro = document.createElement("div")
@@ -88,6 +96,7 @@ function crearCartaLibro(libro, autor){
    container.appendChild(cartaLibro)
 }
 
-biblioteca.forEach(libro => {
+b = biblioteca.biblioteca
+b.forEach(libro => {
    return crearCartaLibro(libro.libro, libro.autor)
 })
